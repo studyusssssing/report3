@@ -33,6 +33,8 @@ int main() {
     return 0;
 }
 ```
+![image](https://github.com/studyusssssing/report3/assets/152676097/a17dc716-6435-4cc3-856c-54a556c5fd1c)
+
 ②编写一个丽数,将数组中n个数按反序存放。   
 要求:   
 ●在主函数中输入10个数，并输出排好序的数。   
@@ -62,6 +64,8 @@ int main() {
     return 0;
 }
 ```
+![image](https://github.com/studyusssssing/report3/assets/152676097/e220f0ce-9a93-463c-a579-1c84200594f5)
+
 ③设计一个函数，调用它时，每次实现不同的功能:   
 ●求两个数之和;   
 ●求两个数之差;   
@@ -71,19 +75,6 @@ int main() {
 ●分别编写函数add()、sub( )、mul( )计算两个数的和、差、积。   
 ●编写函数process( )，分别调用函数add()、sub()、mul( )。   
 ```
-#include <stdio.h>
-
-// 函数声明
-int main() {
-    int a, b;
-    scanf("%d %d", &a, &b);
-    int choice;
-    printf("1. 求和\n2. 求差\n3. 求积\n");
-    scanf("%d", &choice);
-    process(a, b, choice);
-    return 0;
-}
-
 int add(int a, int b) {
     return a + b;
 }
@@ -95,7 +86,6 @@ int sub(int a, int b) {
 int mul(int a, int b) {
     return a * b;
 }
-
 void process(int a, int b, int choice) {
     switch (choice) {
         case 1:
@@ -109,6 +99,19 @@ void process(int a, int b, int choice) {
             break;
     }
 }
+#include <stdio.h>
+int main() {
+    int a, b;
+    scanf("%d %d", &a, &b);
+    int choice;
+    printf("1. 求和\n2. 求差\n3. 求积\n");
+    scanf("%d", &choice);
+    process(a, b, choice);
+    return 0;
+}
+
 ```
+![image](https://github.com/studyusssssing/report3/assets/152676097/763af5f0-8f3f-4b73-af1f-f6db1ef63a8b)
+
 ## 实验结果
 本次实验学习了定义函数的方法，掌握函数实参与形参的对应关系，以及“值传递”的方式，嵌套调用和递归调用的方法，全局变量、局部变量、动态变量和静态变量的概念和使用方法。理解了多模块的程序设计与调试的方法。
