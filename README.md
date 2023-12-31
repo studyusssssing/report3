@@ -1,117 +1,101 @@
-# 实验六 函数
-## 实验目的
-①掌握定义函数的方法。	  
-②掌握函数实参与形参的对应关系，以及“值传递”的方式。	  
-③掌握函数的嵌套调用和递归调用的方法。	  
-④掌握全局变量、局部变量、动态变量和静态变量的概念和使用方法。	  
-⑤理解和掌握多模块的程序设计与调试的方法。
-## 实验准备
-①复习函数调用的基本理论知识。   
-②复习函数的嵌套调用和递归调用的方法。   
-③复习全局变量、局部变量;静态变量、动态变量;外部变量等概念和具体使用。   
+# 2.7 实验七 指针
+## (1)实验目的
+①熟练掌握指针、地址、指针类型、void 指针空指针等概念。    
+②熟练掌握指针变量的定义和初始化、指针的间接访问、指针的加减运算和指针表达式。    
+③会使用数组的指针和指向数组的指针变量。    
+④会使用字符串的指针和指向字符串的指针变量。
+## (2)实验准备
+①复习变量、变量的地址、指针变量的概念并且明确的区分这三个不同概念。    
+②复习指针和数组的结合运用。    
+③复习指针的其他理论知识。    
 ④源程序。
-## 实验步骤及内容
-①写一函数,求一个字符串的长度。   
-要求:      
-●本部分习题要求全部用指针完成。   
-●在main函数中输人字符串，并输出其长度。   
-●本题不能使用strlen()函数。
+## (3)实验步骤及内容
+①阅读程序,分析可能产生的结果,并在机器上运行。    
 ```
 #include <stdio.h>
-int stringLength(const char *str) {
-    const char *ptr = str;
-    while (*ptr != '\0') {
-        ptr++;
-    }
-    return ptr - str;
-}
-int main() {
-    char inputString[100];
-    scanf("%s", inputString);
-    int length = stringLength(inputString);
-    printf("%d", length);
-    return 0;
+void main(){
+int i,*p;
+p=&i;
+*p=5;
+printf("%d\n",i);
+printf("%d\n",*p);
+printf("%d\n",p);
+printf("%d\n",&i);
 }
 ```
-![image](https://github.com/studyusssssing/report3/assets/152676097/a17dc716-6435-4cc3-856c-54a556c5fd1c)
+![image](https://github.com/studyusssssing/report3/assets/152676097/0ed3c87b-ce7e-4635-a172-774f73dacabe)
 
-②编写一个丽数,将数组中n个数按反序存放。   
-要求:   
-●在主函数中输入10个数，并输出排好序的数。   
-●编写函数invert( )将10个数按反序存放。   
+②用指针对n个整数进行排序，并将结果顺序输出。要求排序用一个函数实现，主函数只输人n个整数和输出已排序的n个整数。    
 ```
 #include <stdio.h>
 
-void invert(int arr[], int n) {
-    int temp;
-    for (int i = 0; i < n / 2; ++i) {
-        temp = arr[i];
-        arr[i] = arr[n - 1 - i];
-        arr[n - 1 - i] = temp;
-    }
-}
-
+void bubbleSort(int *arr, int n);
 int main() {
-    int n = 10; 
-    int numbers[n];
-    for (int i = 0; i < n; ++i) {
-        scanf("%d", &numbers[i]);
+    int n;
+    scanf("%d", &n);
+    int arr[n];
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
     }
-    invert(numbers, n);
-    for (int i = 0; i < n; ++i) {
-        printf("%d ", numbers[i]);
+    bubbleSort(arr, n);
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
     }
     return 0;
 }
-```
-![image](https://github.com/studyusssssing/report3/assets/152676097/e220f0ce-9a93-463c-a579-1c84200594f5)
 
-③设计一个函数，调用它时，每次实现不同的功能:   
-●求两个数之和;   
-●求两个数之差;   
-●求两个数之积。   
-要求:    
-●在主函数中输入2个数a,b,并输出a,b的和、差和乘积。   
-●分别编写函数add()、sub( )、mul( )计算两个数的和、差、积。   
-●编写函数process( )，分别调用函数add()、sub()、mul( )。   
-```
-int add(int a, int b) {
-    return a + b;
-}
-
-int sub(int a, int b) {
-    return a - b;
-}
-
-int mul(int a, int b) {
-    return a * b;
-}
-void process(int a, int b, int choice) {
-    switch (choice) {
-        case 1:
-            printf("%d\n", add(a, b));
-            break;
-        case 2:
-            printf("%d\n", sub(a, b));
-            break;
-        case 3:
-            printf("%d\n", mul(a, b));
-            break;
+void bubbleSort(int *arr, int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
     }
 }
+
+```
+③编写一个函数alloc( n) ,用来在内存新开辟-一个连续的空间(n个字节)。再写一个函数free(p),将以地址p开始的各单元释放。主程序输人10个不等长的大写字符串，每输人一个字符串，应放在新申请的一片连续的空间。该字符串反序输出后，释放它所占用的空间。
+```
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+char* alloc(int n);
+void freeMemory(char *p);
 int main() {
-    int a, b;
-    scanf("%d %d", &a, &b);
-    int choice;
-    printf("1. 求和\n2. 求差\n3. 求积\n");
-    scanf("%d", &choice);
-    process(a, b, choice);
+    char *str;
+    int i, len;
+    for (i = 0; i < 10; i++) {
+        scanf("%ms", &str); // 使用 %ms 以动态分配内存保存字符串
+        len = strlen(str);
+
+        char *newStr = alloc(len + 1); // +1 用于存储字符串结束符 '\0'
+
+        strcpy(newStr, str);
+
+        printf("反序输出第 %d 个字符串: ", i + 1);
+        for (int j = len - 1; j >= 0; j--) {
+            printf("%c", newStr[j]);
+        }
+        printf("\n");
+
+        freeMemory(newStr);
+
+        free(str);
+    }
+
     return 0;
 }
-
+char* alloc(int n) {
+    return (char*)malloc(n);
+}
+void freeMemory(char *p) {
+    free(p);
+}
 ```
-![image](https://github.com/studyusssssing/report3/assets/152676097/763af5f0-8f3f-4b73-af1f-f6db1ef63a8b)
 
-## 实验结果
-本次实验学习了定义函数的方法，掌握函数实参与形参的对应关系，以及“值传递”的方式，嵌套调用和递归调用的方法，全局变量、局部变量、动态变量和静态变量的概念和使用方法。理解了多模块的程序设计与调试的方法。
+## (4)实验报告
+变量的地址是指变量在内存中的位置。通过使用取地址运算符&，你可以获取变量的地址，例如&x表示变量x的地址。    
+指针变量是一种特殊类型的变量，它存储的值是内存地址。指针变量用于存储其他变量的地址。通过指针，我们可以访问或修改存储在特定地址上的数据。
